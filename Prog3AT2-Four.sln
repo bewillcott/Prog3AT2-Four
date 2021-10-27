@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketServer", "SocketServer\SocketServer.csproj", "{D268677A-B0D9-41DE-AD93-409D910B42A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{236F6CBB-75AE-453F-95DA-1446C53FB857}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI_Client", "GUI_Client\GUI_Client.csproj", "{E4420885-3449-4EBD-8A78-2671CC36B511}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D268677A-B0D9-41DE-AD93-409D910B42A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D268677A-B0D9-41DE-AD93-409D910B42A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D268677A-B0D9-41DE-AD93-409D910B42A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D268677A-B0D9-41DE-AD93-409D910B42A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236F6CBB-75AE-453F-95DA-1446C53FB857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236F6CBB-75AE-453F-95DA-1446C53FB857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236F6CBB-75AE-453F-95DA-1446C53FB857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236F6CBB-75AE-453F-95DA-1446C53FB857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4420885-3449-4EBD-8A78-2671CC36B511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4420885-3449-4EBD-8A78-2671CC36B511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4420885-3449-4EBD-8A78-2671CC36B511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4420885-3449-4EBD-8A78-2671CC36B511}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE79B92D-BB8C-4DF7-854B-A04BBDA42E2E}
+	EndGlobalSection
+EndGlobal
