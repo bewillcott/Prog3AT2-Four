@@ -41,26 +41,26 @@ namespace GUIClient
             new(@"_About", nameof(About), typeof(CustomCommands));
 
         /// <summary>
-        /// Defines the Add.
+        /// Defines the Login.
         /// </summary>
-        public static readonly RoutedUICommand Add =
+        public static readonly RoutedUICommand Login =
             new(
-                        @"_Add",
-                        nameof(Add),
+                        @"_Login",
+                        nameof(Login),
                         typeof(CustomCommands),
                         new InputGestureCollection {
-                        new KeyGesture(Key.A, ModifierKeys.Control)});
+                        new KeyGesture(Key.L, ModifierKeys.Control)});
 
         /// <summary>
-        /// Defines the Edit.
+        /// Defines the Logout.
         /// </summary>
-        public static readonly RoutedUICommand Edit =
+        public static readonly RoutedUICommand Logout =
             new(
-                        @"_Edit",
-                        nameof(Edit),
+                        @"Log_out",
+                        nameof(Logout),
                         typeof(CustomCommands),
                         new InputGestureCollection {
-                        new KeyGesture(Key.E, ModifierKeys.Control)});
+                        new KeyGesture(Key.O, ModifierKeys.Control)});
 
         /// <summary>
         /// Defines the Exit.

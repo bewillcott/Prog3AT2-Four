@@ -30,12 +30,12 @@ namespace Common
     using System;
 
     /// <summary>
-    /// Defines the <see cref="Constants" />.
+    /// Constants is a utility class containing only common constants.
     /// </summary>
     public static class Constants
     {
         /// <summary>
-        /// The build date of the project..
+        /// The build date of the project.
         /// </summary>
         public const string BUILD_DATE = @"30 October 2021";
 
@@ -45,9 +45,14 @@ namespace Common
         public const String DISCONNECT_SESSION = @"-=quit=-";
 
         /// <summary>
-        /// The Project title..
+        /// The Project title.
         /// </summary>
         public const string PRODUCT_TITLE = @"Prog3 AT2 Four";
+
+        /// <summary>
+        /// Defines the SERVER_NAME.
+        /// </summary>
+        public const String SERVER_NAME = @"localhost";
 
         /// <summary>
         /// SocketServer port number.
@@ -60,27 +65,27 @@ namespace Common
         public const String TERMINATE_SERVER = @"!**_Terminate_Server_**!";
 
         /// <summary>
-        /// The Project version number..
+        /// The Project version number.
         /// </summary>
         public const string VERSION = @"v1.0";
 
         /// <summary>
-        /// Holds the double line..
+        /// Holds the double line.
         /// </summary>
         private static string doubleLine;
 
         /// <summary>
-        /// Holds the single line..
+        /// Holds the single line.
         /// </summary>
         private static string line;
 
         /// <summary>
-        /// Holds the title indent..
+        /// Holds the title indent.
         /// </summary>
         private static string titleIndent;
 
         /// <summary>
-        /// Gets the double line..
+        /// Gets the double line.
         /// </summary>
         public static string DOUBLE_LINE
         {
@@ -96,7 +101,7 @@ namespace Common
         }
 
         /// <summary>
-        /// Gets the single line..
+        /// Gets the single line.
         /// </summary>
         public static string LINE
         {
@@ -112,7 +117,7 @@ namespace Common
         }
 
         /// <summary>
-        /// Gets the title indent..
+        /// Gets the title indent.
         /// </summary>
         public static string TITLE_INDENT
         {
@@ -134,7 +139,7 @@ namespace Common
         /// <param name="args">The args <see cref="object[]"/>.</param>
         public static void Log(string message, params object[] args)
         {
-            Console.WriteLine(message + '\n', args);
+            Console.WriteLine(message, args);
         }
     }
 }

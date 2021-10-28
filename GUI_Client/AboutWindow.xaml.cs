@@ -32,6 +32,8 @@ namespace GUIClient
     using System.Windows.Documents;
     using System.Windows.Media;
 
+    using static Common.Constants;
+
     /// <summary>
     /// Interaction logic for AboutWindow.xaml
     /// </summary>
@@ -56,18 +58,17 @@ namespace GUIClient
         private const String DESCRIPTION
                 = "This program was developed for my Diploma in Software Development "
                 + "at the South Metropolitan TAFE, Rockingham WA.\n\n"
-                + "This application uses an external 3rd party library to read and "
-                + "write data to a CSV format.  The program has an open and save dialog box "
-                + "interface so a file can be selected and displayed in a table.";
+                + "This application provides a Chat facility that requires the user "
+                + "to first Login to the server.";
 
         public AboutWindow()
         {
             InitializeComponent();
             ResizeMode = ResizeMode.NoResize;
 
-            productLabel.Content = Constants.PRODUCT_TITLE;
-            verionLabel.Content = Constants.VERSION;
-            buildDateLabel.Content = Constants.BUILD_DATE;
+            productLabel.Content = PRODUCT_TITLE;
+            verionLabel.Content = VERSION;
+            buildDateLabel.Content = BUILD_DATE;
             copyrightLabel.Content = COPYRIGHT_NOTICE;
 
             // Display the Product Description

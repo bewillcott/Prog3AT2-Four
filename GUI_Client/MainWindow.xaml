@@ -39,10 +39,10 @@
         Closing="Window_Closing" Background="Cornsilk">
 
     <Window.CommandBindings>
-        <CommandBinding Command="Open" CanExecute="OpenCommand_CanExecute" Executed="OpenCommand_Executed" />
-        <CommandBinding Command="Close" CanExecute="CloseCommand_CanExecute" Executed="CloseCommand_Executed" />
         <CommandBinding Command="{x:Static cmds:CustomCommands.About}" CanExecute="AboutCommand_CanExecute" Executed="AboutCommand_Executed" />
         <CommandBinding Command="{x:Static cmds:CustomCommands.Exit}" CanExecute="ExitCommand_CanExecute" Executed="ExitCommand_Executed" />
+        <CommandBinding Command="{x:Static cmds:CustomCommands.Login}" CanExecute="LoginCommand_CanExecute" Executed="LoginCommand_Executed" />
+        <CommandBinding Command="{x:Static cmds:CustomCommands.Logout}" CanExecute="LogoutCommand_CanExecute" Executed="LogoutCommand_Executed" />
     </Window.CommandBindings>
 
     <Window.Resources>
@@ -65,11 +65,12 @@
         <Line DockPanel.Dock="Top" Stroke="Black" StrokeThickness="1" X1="0" X2="400" />
         <Menu DockPanel.Dock="Top" Height="25" VerticalContentAlignment="Stretch">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="Open" />
-                <Separator />
-                <MenuItem Header="_Close" Command="Close" />
-                <Separator />
                 <MenuItem Command="{x:Static cmds:CustomCommands.Exit}" />
+            </MenuItem>
+
+            <MenuItem Header="_Chat">
+                <MenuItem Command="{x:Static cmds:CustomCommands.Login}" />
+                <MenuItem Command="{x:Static cmds:CustomCommands.Logout}" />
             </MenuItem>
 
             <MenuItem Header="_Help">

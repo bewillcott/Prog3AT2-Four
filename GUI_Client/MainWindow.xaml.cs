@@ -27,7 +27,7 @@
 
 namespace GUIClient
 {
-    using System.Collections.ObjectModel;
+    using System.Net.Sockets;
     using System.Windows;
 
     /// <summary>
@@ -54,5 +54,7 @@ namespace GUIClient
             CentreFrame.Content = blankPage;
             SetStatusText(null);
         }
+
+        public ChatPage ChatPage { get; private set; }
     }
 }

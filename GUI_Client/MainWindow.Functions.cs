@@ -57,13 +57,13 @@ namespace GUIClient
         }
 
         /// <summary>
-        /// Show the DisplayFilePage.
+        /// Show the ChatPage.
         /// </summary>
-        //private void ShowDisplayFilePage()
-        //{
-        //    // Open DisplayFilePage
-        //    DisplayFilePage = new DisplayFilePage(SensorData, this);
-        //    CentreFrame.Content = DisplayFilePage;
-        //}
+        private void ShowChatPage()
+        {
+            // Open DisplayFilePage
+            ChatPage = new(this);
+            CentreFrame.Content = ChatPage;
+        }
     }
 }

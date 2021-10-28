@@ -50,6 +50,28 @@ namespace GUIClient
             e.CanExecute = true;
         }
 
+        private void LoginCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void LoginCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            ShowChatPage();
+        }
+
+        private void LogoutCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void LogoutCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            CentreFrame.Content = blankPage;
+            ChatPage.Dispose();
+            ChatPage = null;
+        }
+
         /// <summary>
         /// The AboutCommand_Executed.
         /// </summary>
@@ -61,28 +83,6 @@ namespace GUIClient
             AboutWindow aboutWindow = new();
             aboutWindow.Owner = this;
             aboutWindow.ShowDialog();
-
-            e.Handled = true;
-        }
-
-        /// <summary>
-        /// The CloseCommand_CanExecute.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="CanExecuteRoutedEventArgs"/>.</param>
-        private void CloseCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        /// <summary>
-        /// The CloseCommand_Executed.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
-        private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            SetStatusText(null);
 
             e.Handled = true;
         }
@@ -109,26 +109,6 @@ namespace GUIClient
         }
 
         /// <summary>
-        /// The OpenCommand_CanExecute.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="CanExecuteRoutedEventArgs"/>.</param>
-        private void OpenCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        /// <summary>
-        /// The OpenCommand_Executed.
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/>.</param>
-        /// <param name="e">The e<see cref="ExecutedRoutedEventArgs"/>.</param>
-        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        /// <summary>
         /// The Window_Closing.
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
@@ -137,6 +117,12 @@ namespace GUIClient
         {
             if (!e.Cancel)
             {
+                if (ChatPage != null)
+                {
+                    ChatPage.Dispose();
+                    ChatPage = null;
+                }
+
                 Application.Current.Shutdown();
             }
         }

@@ -1,5 +1,5 @@
 ﻿/*
- *  File Name:   Program.cs
+ *  File Name:   Server.cs
  *
  *  Project:     SocketServer
  *
@@ -35,16 +35,11 @@ namespace SocketServer
 
     using static Common.Constants;
 
-    internal class Program
+    public static class Server
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-        }
-
-        private void StartServer()
-        {
-            IPAddress ipAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
+            IPAddress ipAddress = Dns.GetHostEntry(SERVER_NAME).AddressList[0];
             IPEndPoint endPoint = new(ipAddress, SERVER_PORT);
             TcpListener serverSocket = null;
 
@@ -53,16 +48,13 @@ namespace SocketServer
                 // Create a socket that will use TCP protocol
                 serverSocket = new(endPoint);
 
-                // Specify how many requests a Socket can listen before it gives Server busy response.
-                // We will listen 10 requests at a time
-                serverSocket.Server.Listen(10);
                 serverSocket.Start();
 
-                Log("\n%1$s", DOUBLE_LINE);
-                Log("%1$sJava3 AT2 Four - Socket Server (%2$s)", TITLE_INDENT, VERSION);
-                Log("%1$s\n", DOUBLE_LINE);
-                Log("Server is listening on port #%1$d", ((IPEndPoint)serverSocket.Server.LocalEndPoint).Port.ToString());
-                Log("%1$s\n", LINE);
+                Log($"\n{DOUBLE_LINE}");
+                Log($"{TITLE_INDENT}Java3 AT2 Four - Socket Server ({VERSION})");
+                Log($"{DOUBLE_LINE}\n");
+                Log($"Server is listening on port {((IPEndPoint)serverSocket.Server.LocalEndPoint).Port.ToString()}");
+                Log($"{LINE}\n");
 
                 bool keepServerAlive = true;
                 int sessionNumber = 0;
@@ -73,10 +65,10 @@ namespace SocketServer
                     {
                         // wait, listen and accept connection
                         sessionNumber++;
-                        String clientHostName = ((IPEndPoint)serverSocket.Server.RemoteEndPoint).Address.ToString(); // client name
-                        int clientPortNumber = ((IPEndPoint)serverSocket.Server.RemoteEndPoint).Port; // port used
+                        String clientHostName = ((IPEndPoint)clientSocket.Client.RemoteEndPoint).Address.ToString(); // client name
+                        int clientPortNumber = ((IPEndPoint)clientSocket.Client.RemoteEndPoint).Port; // port used
 
-                        Log("[%1$d] Connected from %2$s on #%3$d", sessionNumber, clientHostName, clientPortNumber);
+                        Log($"[{sessionNumber}] Connected from {clientHostName} on {clientPortNumber}");
 
                         try
                         {
@@ -88,18 +80,18 @@ namespace SocketServer
                                 bool sessionOpen = true;
 
                                 // Notify client of connection success.
-                                String msg = "[" + sessionNumber + "] You have connect to Chat server " + VERSION + "";
+                                String msg = $"[{sessionNumber}] You have connect to Chat server {VERSION}";
                                 outStream.WriteLine(msg); // send a message to client
 
                                 while (sessionOpen)
                                 { // chatting loop
                                     String inLine = inStream.ReadLine(); // read a line from client
-                                    Log("[%1$d] Received from client: %2$s", sessionNumber, inLine);
+                                    Log($"[{sessionNumber}] Received from client: {inLine}");
 
                                     if (inLine == null)
                                     {
-                                        Log("[%1$d] Client disconnected uncleanly!", sessionNumber);
-                                        Log("%1$s\n", LINE);
+                                        Log($"[{sessionNumber}] Client disconnected uncleanly!");
+                                        Log($"{LINE}\n");
                                         sessionOpen = false;
                                     }
                                     else
@@ -109,8 +101,8 @@ namespace SocketServer
                                             // if the client sends disconnect string, then stop
                                             case DISCONNECT_SESSION:
                                                 {
-                                                    Log("[%1$d] Client closed session.", sessionNumber);
-                                                    Log("%1$s\n", LINE);
+                                                    Log($"[{sessionNumber}] Client closed session.");
+                                                    Log($"{LINE}\n");
                                                     sessionOpen = false;
                                                     break;
                                                 }
@@ -118,8 +110,8 @@ namespace SocketServer
                                             // if the client sends terminate server string, then shutdown
                                             case TERMINATE_SERVER:
                                                 {
-                                                    Log("[%1$d] Client Terminated Server!!!", sessionNumber);
-                                                    Log("%1$s\n", DOUBLE_LINE);
+                                                    Log($"[{sessionNumber}] Client Terminated Server!!!");
+                                                    Log($"{DOUBLE_LINE}\n");
                                                     sessionOpen = false;
 
                                                     // Stop server
@@ -129,13 +121,12 @@ namespace SocketServer
 
                                             default:
                                                 {
+                                                    // Reply to client
+                                                    String outLine = $"[{sessionNumber}] You said '{inLine}'";
+                                                    outStream.WriteLine(outLine); // send a message to client
                                                     break;
                                                 }
                                         }
-
-                                        // Reply to client
-                                        String outLine = "[" + sessionNumber + "] You said '" + inLine + "'";
-                                        outStream.WriteLine(outLine); // send a message to client
                                     }
                                 }
                             }
