@@ -11,5 +11,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Common\Common.csproj" />
+	  <ProjectReference Include="..\MyNETCoreLib\MyNETCoreLib.csproj" />
 	</ItemGroup>
 </Project>

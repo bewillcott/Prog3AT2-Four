@@ -9,5 +9,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\MyWpfNETCoreLib\MyWpfNETCoreLib.csproj" />
 	</ItemGroup>
 </Project>

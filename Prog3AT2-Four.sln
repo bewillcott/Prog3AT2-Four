@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI_Client", "GUI_Client\GUI_Client.csproj", "{E4420885-3449-4EBD-8A78-2671CC36B511}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNETCoreLib", "MyNETCoreLib\MyNETCoreLib.csproj", "{C7BD117B-9BC4-4DDD-B0C3-C94A5627ECB0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWpfNETCoreLib", "MyWpfNETCoreLib\MyWpfNETCoreLib.csproj", "{EF470752-7941-4E4B-ADC4-8945B360D872}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{E4420885-3449-4EBD-8A78-2671CC36B511}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4420885-3449-4EBD-8A78-2671CC36B511}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4420885-3449-4EBD-8A78-2671CC36B511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7BD117B-9BC4-4DDD-B0C3-C94A5627ECB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7BD117B-9BC4-4DDD-B0C3-C94A5627ECB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7BD117B-9BC4-4DDD-B0C3-C94A5627ECB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7BD117B-9BC4-4DDD-B0C3-C94A5627ECB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF470752-7941-4E4B-ADC4-8945B360D872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF470752-7941-4E4B-ADC4-8945B360D872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF470752-7941-4E4B-ADC4-8945B360D872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF470752-7941-4E4B-ADC4-8945B360D872}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
