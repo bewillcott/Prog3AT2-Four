@@ -33,9 +33,14 @@ namespace Common
     public static class SessionConstants
     {
         /// <summary>
-        /// Sent to Client when Client's request was corrupted or not correctly formatted..
+        /// Sent to Client when Client's request was corrupted or not correctly formatted.
         /// </summary>
         public const string BadRequest = @"BAD_REQUEST";
+
+        /// <summary>
+        /// Defines the ChatClose.
+        /// </summary>
+        public const string ChatClose = @"CHAT_CLOSE";
 
         /// <summary>
         /// Defines the ChatDenied.
@@ -48,17 +53,12 @@ namespace Common
         public const string ChatOK = @"CHAT_OK";
 
         /// <summary>
-        /// Defines the ChatQuit.
-        /// </summary>
-        public const string ChatClose = @"CHAT_CLOSE";
-
-        /// <summary>
         /// Defines the ChatRequest.
         /// </summary>
         public const string ChatRequest = @"CHAT_REQUEST";
 
         /// <summary>
-        /// Sent to Client when Client has made a request out of sequence..
+        /// Sent to Client when Client has made a request out of sequence.
         /// </summary>
         public const string InvalidRequest = @"INVALID_REQUEST";
 
@@ -76,6 +76,26 @@ namespace Common
         /// Defines the LoginRequest.
         /// </summary>
         public const string LoginRequest = @"LOGIN_REQUEST";
+
+        /// <summary>
+        /// Defines the LogOut.
+        /// </summary>
+        public const string LogOut = @"LOG_OUT";
+
+        /// <summary>
+        /// Defines the NewUserFailed.
+        /// </summary>
+        public const string NewUserFailed = @"NEW_USER_FAILED";
+
+        /// <summary>
+        /// Defines the NewUserOK.
+        /// </summary>
+        public const string NewUserOK = @"NEW_USER_OK";
+
+        /// <summary>
+        /// Defines the NewUserRequest.
+        /// </summary>
+        public const string NewUserRequest = @"NEW_USER_REQUEST";
 
         /// <summary>
         /// Defines the Password.

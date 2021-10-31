@@ -41,6 +41,17 @@ namespace GUIClient
             new(@"_About", nameof(About), typeof(CustomCommands));
 
         /// <summary>
+        /// Defines the Exit.
+        /// </summary>
+        public static readonly RoutedUICommand Exit =
+            new(
+                        @"E_xit",
+                        nameof(Exit),
+                        typeof(CustomCommands),
+                        new InputGestureCollection {
+                        new KeyGesture(Key.F4, ModifierKeys.Alt)});
+
+        /// <summary>
         /// Defines the Login.
         /// </summary>
         public static readonly RoutedUICommand Login =
@@ -63,14 +74,23 @@ namespace GUIClient
                         new KeyGesture(Key.O, ModifierKeys.Control)});
 
         /// <summary>
-        /// Defines the Exit.
+        /// Defines the Logout.
         /// </summary>
-        public static readonly RoutedUICommand Exit =
+        public static readonly RoutedUICommand NewAccount =
             new(
-                        @"E_xit",
-                        nameof(Exit),
+                        @"_New Account",
+                        nameof(NewAccount),
                         typeof(CustomCommands),
                         new InputGestureCollection {
-                        new KeyGesture(Key.F4, ModifierKeys.Alt)});
+                        new KeyGesture(Key.N, ModifierKeys.Control)});
+
+        /// <summary>
+        /// Defines the Send.
+        /// </summary>
+        public static readonly RoutedUICommand Send =
+            new(
+                        @"_Send",
+                        nameof(Send),
+                        typeof(CustomCommands));
     }
 }

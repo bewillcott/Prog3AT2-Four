@@ -32,10 +32,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:GUIClient"
+      xmlns:cmds="clr-namespace:GUIClient"
       mc:Ignorable="d"
       d:DesignHeight="350" d:DesignWidth="400"
       Title="ChatPage">
+
+    <Page.CommandBindings>
+        <CommandBinding Command="{x:Static cmds:CustomCommands.Send}" CanExecute="Send_CanExecute" Executed="Send_Executed" />
+    </Page.CommandBindings>
 
     <Grid Margin="10,0,10,10" HorizontalAlignment="Stretch">
         <Grid.Resources>
@@ -75,7 +79,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox x:Name="outgoingMsgTextBlock" />
-            <Button x:Name="sendButton" Content="_Send" Click="sendButton_Click" IsDefault="True"
+            <Button Command="{x:Static cmds:CustomCommands.Send}" IsDefault="True"
                     Grid.Column="2" Width="35" />
         </Grid>
     </Grid>

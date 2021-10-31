@@ -28,12 +28,11 @@
 namespace GUIClient
 {
     using System.ComponentModel;
-    using System.Globalization;
-    using System.IO;
     using System.Windows;
     using System.Windows.Input;
 
-    using Microsoft.Win32;
+    using static Common.Constants;
+    using static Common.SessionConstants;
 
     /// <summary>
     /// Defines the <see cref="MainWindow" />.
@@ -48,28 +47,6 @@ namespace GUIClient
         private void AboutCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        }
-
-        private void LoginCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void LoginCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            ShowChatPage();
-        }
-
-        private void LogoutCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void LogoutCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-        {
-            CentreFrame.Content = blankPage;
-            ChatPage.Dispose();
-            ChatPage = null;
         }
 
         /// <summary>
@@ -109,6 +86,105 @@ namespace GUIClient
         }
 
         /// <summary>
+        /// The LoginCommand_CanExecute.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Windows.Input.CanExecuteRoutedEventArgs"/>.</param>
+        private void LoginCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Session == null;
+        }
+
+        /// <summary>
+        /// The LoginCommand_Executed.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Windows.Input.ExecutedRoutedEventArgs"/>.</param>
+        private void LoginCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            statusTextBlock.Text = @"";
+            Session = new Session(ServerName, ServerPort);
+            Session.PropertyChanged += Session_PropertyChanged;
+            CentreFrame.Content = new LoginPage(Session);
+        }
+
+        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "LoggedIn":
+                    {
+                        if (Session.LoggedIn)
+                        {
+                            CentreFrame.Content = new ChatPage(Session);
+                        }
+
+                        break;
+                    }
+
+                case "StatusText":
+                    {
+                        statusTextBlock.Text = Session.StatusText;
+                        break;
+                    }
+
+                case "ChatSessionOpen":
+                    {
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// The LogoutCommand_CanExecute.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Windows.Input.CanExecuteRoutedEventArgs"/>.</param>
+        private void LogoutCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Session != null && Session.LoggedIn;
+        }
+
+        /// <summary>
+        /// The LogoutCommand_Executed.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Windows.Input.ExecutedRoutedEventArgs"/>.</param>
+        private void LogoutCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            Session.Dispose();
+            Session = null;
+            CentreFrame.Content = blankPage;
+            statusTextBlock.Text = @"You have Closed the Chat Session and Logged Out.";
+        }
+
+        /// <summary>
+        /// The NewAccountCommand_CanExecute.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Windows.Input.CanExecuteRoutedEventArgs"/>.</param>
+        private void NewAccountCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Session == null;
+        }
+
+        /// <summary>
+        /// The NewAccountCommand_Executed.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Windows.Input.ExecutedRoutedEventArgs"/>.</param>
+        private void NewAccountCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            statusTextBlock.Text = @"";
+            Session = new Session(ServerName, ServerPort);
+            Session.PropertyChanged += Session_PropertyChanged;
+            CentreFrame.Content = new NewAccountPage(Session);
+        }
+
+        /// <summary>
         /// The Window_Closing.
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/>.</param>
@@ -117,10 +193,10 @@ namespace GUIClient
         {
             if (!e.Cancel)
             {
-                if (ChatPage != null)
+                if (Session != null)
                 {
-                    ChatPage.Dispose();
-                    ChatPage = null;
+                    Session.Dispose();
+                    Session = null;
                 }
 
                 Application.Current.Shutdown();

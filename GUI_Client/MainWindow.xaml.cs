@@ -27,7 +27,6 @@
 
 namespace GUIClient
 {
-    using System.Net.Sockets;
     using System.Windows;
 
     /// <summary>
@@ -35,11 +34,6 @@ namespace GUIClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Defines the TITLE.
-        /// </summary>
-        private const string TITLE = @"Prog3 AT2 Six";
-
         /// <summary>
         /// Defines the blankPage.
         /// </summary>
@@ -51,10 +45,29 @@ namespace GUIClient
         public MainWindow()
         {
             InitializeComponent();
+            SetTitle();
             CentreFrame.Content = blankPage;
             SetStatusText(null);
         }
 
-        public ChatPage ChatPage { get; private set; }
+        ///// <summary>
+        ///// Gets the ChatPage.
+        ///// </summary>
+        //public ChatPage ChatPage { get; private set; }
+
+        ///// <summary>
+        ///// Gets the NewAccountPage.
+        ///// </summary>
+        //public NewAccountPage NewAccountPage { get; private set; }
+
+        ///// <summary>
+        ///// Gets the LoginPage.
+        ///// </summary>
+        //public LoginPage LoginPage { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the Session.
+        /// </summary>
+        public Session Session { get; set; }
     }
 }

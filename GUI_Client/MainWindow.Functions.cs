@@ -27,10 +27,7 @@
 
 namespace GUIClient
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Windows;
+    using static Common.Constants;
 
     /// <summary>
     /// Defines the <see cref="MainWindow" />.
@@ -51,9 +48,12 @@ namespace GUIClient
         /// </summary>
         private void SetTitle()
         {
-            // Set the Window Title
+            this.Title = ProductTitle;
+        }
 
-            this.Title = TITLE;
+        private void ShowBlankPage()
+        {
+            CentreFrame.Content = blankPage;
         }
 
         /// <summary>
@@ -61,9 +61,24 @@ namespace GUIClient
         /// </summary>
         private void ShowChatPage()
         {
-            // Open DisplayFilePage
-            ChatPage = new(this);
-            CentreFrame.Content = ChatPage;
+            CentreFrame.Content = new ChatPage(Session);
+            CentreFrame.Content = null;
+        }
+
+        /// <summary>
+        /// Show the ChatPage.
+        /// </summary>
+        private void ShowNewAccountPage()
+        {
+            CentreFrame.Content = new NewAccountPage(Session);
+        }
+
+        /// <summary>
+        /// Show the ChatPage.
+        /// </summary>
+        private void ShowLoginPage()
+        {
+            CentreFrame.Content = new LoginPage(Session);
         }
     }
 }

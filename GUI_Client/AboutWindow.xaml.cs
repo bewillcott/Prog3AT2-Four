@@ -66,9 +66,9 @@ namespace GUIClient
             InitializeComponent();
             ResizeMode = ResizeMode.NoResize;
 
-            productLabel.Content = PRODUCT_TITLE;
-            verionLabel.Content = VERSION;
-            buildDateLabel.Content = BUILD_DATE;
+            productLabel.Content = ProductTitle;
+            verionLabel.Content = Common.Constants.Version;
+            buildDateLabel.Content = BuildDate;
             copyrightLabel.Content = COPYRIGHT_NOTICE;
 
             // Display the Product Description

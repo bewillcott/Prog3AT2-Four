@@ -37,37 +37,27 @@ namespace Common
         /// <summary>
         /// The build date of the project.
         /// </summary>
-        public const string BUILD_DATE = @"30 October 2021";
-
-        /// <summary>
-        /// Chat service disconnect string.
-        /// </summary>
-        public const String DISCONNECT_SESSION = @"-=quit=-";
+        public const string BuildDate = @"30 October 2021";
 
         /// <summary>
         /// The Project title.
         /// </summary>
-        public const string PRODUCT_TITLE = @"Prog3 AT2 Four";
+        public const string ProductTitle = @"Prog3 AT2 Four";
 
         /// <summary>
-        /// Defines the SERVER_NAME.
+        /// Defines the ServerName.
         /// </summary>
-        public const String SERVER_NAME = @"localhost";
+        public const String ServerName = @"localhost";
 
         /// <summary>
         /// SocketServer port number.
         /// </summary>
-        public const int SERVER_PORT = 9010;
-
-        /// <summary>
-        /// Chat service server terminate string.
-        /// </summary>
-        public const String TERMINATE_SERVER = @"!**_Terminate_Server_**!";
+        public const int ServerPort = 9010;
 
         /// <summary>
         /// The Project version number.
         /// </summary>
-        public const string VERSION = @"v1.0";
+        public const string Version = @"v1.0";
 
         /// <summary>
         /// Holds the double line.
@@ -87,7 +77,7 @@ namespace Common
         /// <summary>
         /// Gets the double line.
         /// </summary>
-        public static string DOUBLE_LINE
+        public static string DoubleLine
         {
             get
             {
@@ -103,7 +93,7 @@ namespace Common
         /// <summary>
         /// Gets the single line.
         /// </summary>
-        public static string LINE
+        public static string Line
         {
             get
             {
@@ -119,7 +109,7 @@ namespace Common
         /// <summary>
         /// Gets the title indent.
         /// </summary>
-        public static string TITLE_INDENT
+        public static string TitleIndent
         {
             get
             {

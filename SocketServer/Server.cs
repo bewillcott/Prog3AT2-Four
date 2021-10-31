@@ -31,6 +31,7 @@ namespace SocketServer
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
+    using System.Threading;
 
     using static Common.Constants;
     using static Common.SessionConstants;
@@ -46,8 +47,8 @@ namespace SocketServer
         /// <param name="args">The args<see cref="string[]"/>.</param>
         private static void Main(string[] args)
         {
-            IPAddress ipAddress = Dns.GetHostEntry(SERVER_NAME).AddressList[0];
-            IPEndPoint endPoint = new(ipAddress, SERVER_PORT);
+            IPAddress ipAddress = Dns.GetHostEntry(ServerName).AddressList[0];
+            IPEndPoint endPoint = new(ipAddress, ServerPort);
             TcpListener serverSocket = null;
 
             try
@@ -57,17 +58,22 @@ namespace SocketServer
 
                 serverSocket.Start();
 
-                Log($"\n{DOUBLE_LINE}");
-                Log($"{TITLE_INDENT}Java3 AT2 Four - Socket Server ({VERSION})");
-                Log($"{DOUBLE_LINE}\n");
+                Log($"\n{DoubleLine}");
+                Log($"{TitleIndent}Java3 AT2 Four - Socket Server ({Common.Constants.Version})");
+                Log($"{DoubleLine}\n");
                 Log($"Server is listening on port {((IPEndPoint)serverSocket.Server.LocalEndPoint).Port.ToString()}");
-                Log($"{LINE}\n");
+                Log($"{Line}\n");
 
                 bool keepServerAlive = true;
 
+                // -----------------
+                // Connection Loop
+                // -----------------
                 while (keepServerAlive)
                 {
                     // wait, listen and accept connection
+                    Log("Waiting for a connection...");
+
                     using (TcpClient clientSocket = serverSocket.AcceptTcpClient())
                     {
                         SessionState sessionState = new();
@@ -83,120 +89,194 @@ namespace SocketServer
                             // output stream to client
                             using (StreamWriter outStream = new(clientSocket.GetStream()))
                             {
-                                // Get Client request string
-                                string input = inStream.ReadLine();
+                                outStream.AutoFlush = true;
 
-                                string[] request = input.Split(':');
-
-                                switch (request[0])
+                                // --------------
+                                // Session Loop
+                                // --------------
+                                do
                                 {
-                                    case LoginRequest:
-                                        {
-                                            // Process Login request
-                                            if (sessionState.Username == null)
+                                    // Get Client request string
+                                    string incoming = inStream.ReadLine();
+
+                                    Log(incoming);
+                                    string[] request = incoming.Split(':');
+
+                                    switch (request[0])
+                                    {
+                                        case LoginRequest:
                                             {
-                                                if (request.Length == 3)
+                                                // Process Login request
+                                                if (sessionState.Username == null)
                                                 {
-                                                    if (ValidatePassword(sessionState, request[1], request[2]))
+                                                    if (request.Length == 3)
                                                     {
-                                                        // Logged in!
-                                                        sessionState.Message = LoginOK;
+                                                        if (ValidatePassword(sessionState, request[1], request[2]))
+                                                        {
+                                                            // Logged in!
+                                                            sessionState.Message = LoginOK;
+                                                        }
+                                                        else
+                                                        {
+                                                            // Password is wrong
+                                                            sessionState.Message = LoginFailed;
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        // Password is wrong
-                                                        sessionState.Message = LoginFailed;
+                                                        // Either username &/or password missing
+                                                        sessionState.Message = BadRequest;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    // Either username &/or password missing
-                                                    sessionState.Message = BadRequest;
+                                                    // Already logged in
+                                                    sessionState.Message = InvalidRequest;
                                                 }
+
+                                                break;
                                             }
-                                            else
+
+                                        case NewUserRequest:
                                             {
-                                                // Already logged in
+                                                // Process new account request
+                                                if (sessionState.Username == null)
+                                                {
+                                                    if (request.Length == 3)
+                                                    {
+                                                        if (CreateNewAccount(sessionState, request[1], request[2]))
+                                                        {
+                                                            // Logged in!
+                                                            sessionState.Message = NewUserOK;
+                                                        }
+                                                        else
+                                                        {
+                                                            // Password is wrong
+                                                            sessionState.Message = NewUserFailed;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        // Either username &/or password missing
+                                                        sessionState.Message = BadRequest;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    // Already logged in
+                                                    sessionState.Message = InvalidRequest;
+                                                }
+
+                                                break;
+                                            }
+
+                                        case ChatRequest:
+                                            {
+                                                // Setup for Chat session
+                                                if (sessionState.CanOpenChat())
+                                                {
+                                                    // Chat session is Open!
+                                                    sessionState.ChatOpen = true;
+
+                                                    // Notify client of connection success.
+                                                    String msg = $":[{sessionState.SessionId}] "
+                                                        + $"You have connected to Chat server {Common.Constants.Version}";
+                                                    sessionState.Message = ChatOK + msg;
+                                                }
+                                                else if (sessionState.Username != null && !sessionState.LoggedIn)
+                                                {
+                                                    // Sorry, can't let you in
+                                                    sessionState.Message = ChatDenied;
+                                                }
+                                                else
+                                                {
+                                                    // Sorry, can't let you in
+                                                    sessionState.Message = InvalidRequest;
+                                                }
+
+                                                break;
+                                            }
+
+                                        case LogOut:
+                                            {
+                                                sessionState.Message = @"Client logging out";
+                                                sessionState.SetPasswordValid(false);
+                                                break;
+                                            }
+
+                                        default:
+                                            {
+                                                // Unknown request
                                                 sessionState.Message = InvalidRequest;
+                                                break;
                                             }
+                                    }
 
-                                            break;
-                                        }
-
-                                    case ChatRequest:
-                                        {
-                                            // Setup for Chat session
-                                            if (sessionState.CanOpenChat())
-                                            {
-                                                // Chat session is Open!
-                                                sessionState.ChatOpen = true;
-
-                                                // Notify client of connection success.
-                                                String msg = $":[{sessionState.SessionId}] "
-                                                    + $"You have connected to Chat server {VERSION}";
-                                                sessionState.Message = ChatOK + msg;
-                                            }
-                                            else
-                                            {
-                                                // Sorry, can't let you in
-                                                sessionState.Message = InvalidRequest;
-                                            }
-
-                                            break;
-                                        }
-
-                                    default:
-                                        {
-                                            // Unknown request
-                                            sessionState.Message = InvalidRequest;
-                                            break;
-                                        }
-                                }
-
-                                // Send message to Client
-                                outStream.WriteLine(sessionState.Message);
-                                Log(sessionState.Message);
-
-                                // Chat Session
-                                if (sessionState.ChatOpen)
-                                {
-                                    // chatting loop
-                                    while (sessionState.ChatOpen)
+                                    if (clientSocket.Client.Connected)
                                     {
-                                        String inLine = inStream.ReadLine(); // read a line from client
-                                        Log($"[{sessionState.SessionId}] Received from client: {inLine}");
+                                        // Send message to Client
+                                        outStream.WriteLine(sessionState.Message);
+                                    }
 
-                                        if (inLine == null)
+                                    Log(sessionState.Message);
+
+                                    // Chat Session?
+                                    if (sessionState.ChatOpen)
+                                    {
+                                        // -------------------
+                                        // Chat Session Loop
+                                        // -------------------
+                                        while (sessionState.ChatOpen)
                                         {
-                                            Log($"[{sessionState.SessionId}] Client disconnected uncleanly!");
-                                            Log($"{LINE}\n");
-                                            sessionState.ChatOpen = false;
-                                        }
-                                        else
-                                        {
-                                            if (inLine.Equals(ChatClose))
+                                            String inLine = inStream.ReadLine(); // read a line from client
+                                            Log($"[{sessionState.SessionId}] Received from client: {inLine}");
+
+                                            if (inLine == null)
                                             {
-                                                Log($"[{sessionState.SessionId}] Client closed session.");
-                                                Log($"{LINE}\n");
+                                                Log($"[{sessionState.SessionId}] Client disconnected uncleanly!");
+                                                Log($"{Line}\n");
                                                 sessionState.ChatOpen = false;
-                                                break;
                                             }
                                             else
                                             {
-                                                // Reply to client
-                                                String outLine = $"[{sessionState.SessionId}] You said '{inLine}'";
-                                                outStream.WriteLine(outLine); // send a message to client
-                                                break;
+                                                switch (inLine)
+                                                {
+                                                    case ChatClose:
+                                                        {
+                                                            Log($"[{sessionState.SessionId}] Client closed session.");
+                                                            Log($"{Line}\n");
+                                                            sessionState.ChatOpen = false;
+                                                            break;
+                                                        }
+
+                                                    case LogOut:
+                                                        {
+                                                            Log($"[{sessionState.SessionId}] Client logging out.");
+                                                            Log($"{Line}\n");
+                                                            sessionState.ChatOpen = false;
+                                                            break;
+                                                        }
+
+                                                    default:
+                                                        {
+                                                            // Reply to client
+                                                            String outLine = $"[{sessionState.SessionId}] You said '{inLine}'";
+                                                            outStream.WriteLine(outLine); // send a message to client
+                                                            break;
+                                                        }
+                                                }
                                             }
                                         }
                                     }
-                                }
+                                } while (sessionState.LoggedIn);
                             }
                         }
                         catch (Exception ex)
                         {
                             Log(ex.ToString());
                         }
+
+                        clientSocket.Close();
                     }
                 }
             }
@@ -218,12 +298,31 @@ namespace SocketServer
         /// <param name="username">The username <see cref="string"/>.</param>
         /// <param name="password">The password <see cref="string"/>.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        private static bool CreateNewAccount(SessionState sessionState, string username, string password)
+        {
+            // TODO: Redo code to actually create the new account
+            Log($"CreateNewAccount({username}, {password})");
+
+            sessionState.Username = username.Length > 0 ? username : null;
+            sessionState.SetPasswordValid(sessionState.Username != null && password.Length > 0);
+            return sessionState.LoggedIn;
+        }
+
+        /// <summary>
+        /// The ValidatePassword.
+        /// </summary>
+        /// <param name="sessionState">The sessionState<see cref="SessionState"/>.</param>
+        /// <param name="username">The username <see cref="string"/>.</param>
+        /// <param name="password">The password <see cref="string"/>.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         private static bool ValidatePassword(SessionState sessionState, string username, string password)
         {
             // TODO: Redo code to actually check the password is valid
-            sessionState.Username = username;
-            sessionState.PasswordValid = password != null;
-            return true;
+            Log($"Validate({username}, {password})");
+
+            sessionState.Username = username.Length > 0 ? username : null;
+            sessionState.SetPasswordValid(sessionState.Username != null && password.Length > 0);
+            return sessionState.LoggedIn;
         }
     }
 }

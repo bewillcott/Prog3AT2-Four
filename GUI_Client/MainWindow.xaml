@@ -43,6 +43,7 @@
         <CommandBinding Command="{x:Static cmds:CustomCommands.Exit}" CanExecute="ExitCommand_CanExecute" Executed="ExitCommand_Executed" />
         <CommandBinding Command="{x:Static cmds:CustomCommands.Login}" CanExecute="LoginCommand_CanExecute" Executed="LoginCommand_Executed" />
         <CommandBinding Command="{x:Static cmds:CustomCommands.Logout}" CanExecute="LogoutCommand_CanExecute" Executed="LogoutCommand_Executed" />
+        <CommandBinding Command="{x:Static cmds:CustomCommands.NewAccount}" CanExecute="NewAccountCommand_CanExecute" Executed="NewAccountCommand_Executed" />
     </Window.CommandBindings>
 
     <Window.Resources>
@@ -68,6 +69,10 @@
                 <MenuItem Command="{x:Static cmds:CustomCommands.Exit}" />
             </MenuItem>
 
+            <MenuItem Header="_User">
+                <MenuItem Command="{x:Static cmds:CustomCommands.NewAccount}" />
+            </MenuItem>
+
             <MenuItem Header="_Chat">
                 <MenuItem Command="{x:Static cmds:CustomCommands.Login}" />
                 <MenuItem Command="{x:Static cmds:CustomCommands.Logout}" />
@@ -78,11 +83,9 @@
             </MenuItem>
         </Menu>
         <Line DockPanel.Dock="Top" Stroke="Black" StrokeThickness="1" X1="0" X2="400" />
-        <StatusBar DockPanel.Dock="Bottom" Height="Auto">
-            <StatusBarItem HorizontalAlignment="Stretch">
-                <TextBlock x:Name="statusTextBlock" Text="Status" />
-            </StatusBarItem>
-        </StatusBar>
+        <Grid DockPanel.Dock="Bottom" Background="LightGray" Height="Auto">
+            <TextBlock x:Name="statusTextBlock" Text="Status" Margin="5" />
+        </Grid>
         <Line DockPanel.Dock="Bottom" Stroke="Black" StrokeThickness="1" X1="0" X2="400" />
         <Frame x:Name="CentreFrame" NavigationUIVisibility="Hidden" />
     </DockPanel>

@@ -37,6 +37,8 @@ namespace SocketServer
         /// </summary>
         private static int lastSessionId = 0;
 
+        private bool passwordvalid;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionState"/> class.
         /// </summary>
@@ -46,7 +48,7 @@ namespace SocketServer
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a Chat session is Open...
+        /// Gets or sets a value indicating whether a Chat session is Open.
         /// </summary>
         public bool ChatOpen { get; set; }
 
@@ -61,18 +63,24 @@ namespace SocketServer
         public int ClientPortNumber { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether [logged in].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logged in]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggedIn => passwordvalid;
+
+        /// <summary>
         /// Gets or sets the Message.
         /// </summary>
         public string Message { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the Password is Valid...
+        /// Gets the session identifier.
         /// </summary>
-        public bool PasswordValid { get; set; }
-
-        /// <summary>
-        /// Gets the SessionId.
-        /// </summary>
+        /// <value>
+        /// The session identifier.
+        /// </value>
         public int SessionId { get; private set; }
 
         /// <summary>
@@ -86,7 +94,12 @@ namespace SocketServer
         /// <returns>The <see cref="bool"/>.</returns>
         public bool CanOpenChat()
         {
-            return PasswordValid && !ChatOpen;
+            return LoggedIn && !ChatOpen;
+        }
+
+        public void SetPasswordValid(bool value)
+        {
+            passwordvalid = value;
         }
     }
 }
