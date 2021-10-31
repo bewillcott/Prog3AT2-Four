@@ -29,6 +29,8 @@ namespace GUIClient
 {
     using System.Windows;
 
+    using MyWpfNETCoreLib;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
     /// </summary>
@@ -40,6 +42,11 @@ namespace GUIClient
         private static readonly BlankPage blankPage = new BlankPage();
 
         /// <summary>
+        /// The log console
+        /// </summary>
+        private readonly LogConsole logConsole;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
@@ -48,22 +55,10 @@ namespace GUIClient
             SetTitle();
             CentreFrame.Content = blankPage;
             SetStatusText(null);
+
+            // Setup logging console
+            logConsole = new();
         }
-
-        ///// <summary>
-        ///// Gets the ChatPage.
-        ///// </summary>
-        //public ChatPage ChatPage { get; private set; }
-
-        ///// <summary>
-        ///// Gets the NewAccountPage.
-        ///// </summary>
-        //public NewAccountPage NewAccountPage { get; private set; }
-
-        ///// <summary>
-        ///// Gets the LoginPage.
-        ///// </summary>
-        //public LoginPage LoginPage { get; private set; }
 
         /// <summary>
         /// Gets or sets the Session.

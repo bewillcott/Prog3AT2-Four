@@ -40,6 +40,7 @@
 
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static cmds:CustomCommands.About}" CanExecute="AboutCommand_CanExecute" Executed="AboutCommand_Executed" />
+        <!--<CommandBinding Command="{x:Static cmds:CustomCommands.Debug}" CanExecute="DebugCommand_CanExecute" Executed="DebugCommand_Executed"  />-->
         <CommandBinding Command="{x:Static cmds:CustomCommands.Exit}" CanExecute="ExitCommand_CanExecute" Executed="ExitCommand_Executed" />
         <CommandBinding Command="{x:Static cmds:CustomCommands.Login}" CanExecute="LoginCommand_CanExecute" Executed="LoginCommand_Executed" />
         <CommandBinding Command="{x:Static cmds:CustomCommands.Logout}" CanExecute="LogoutCommand_CanExecute" Executed="LogoutCommand_Executed" />
@@ -79,6 +80,8 @@
             </MenuItem>
 
             <MenuItem Header="_Help">
+                <MenuItem Header="_Debug Console" IsCheckable="True"
+                          Checked="DebugMenuItem_Checked" Unchecked="DebugMenuItem_Unchecked" />
                 <MenuItem Command="{x:Static cmds:CustomCommands.About}" />
             </MenuItem>
         </Menu>

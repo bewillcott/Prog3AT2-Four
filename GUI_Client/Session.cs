@@ -32,7 +32,6 @@ namespace GUIClient
     using System.IO;
     using System.Net.Sockets;
     using System.Runtime.CompilerServices;
-    using System.Threading;
 
     using Common;
 
@@ -43,7 +42,6 @@ namespace GUIClient
     {
         private readonly string serverName;
         private readonly int serverPort;
-
         private bool chatSessionOpen;
         private TcpClient clientSocket;
         private bool disposed;
@@ -115,6 +113,7 @@ namespace GUIClient
                 if (loggedIn != value)
                 {
                     loggedIn = value;
+                    Log($"LoggedIn: {LoggedIn}");
                     OnPropertyChanged();
                 }
             }
@@ -129,6 +128,7 @@ namespace GUIClient
             private set
             {
                 statusText = value;
+                Log($"StatusText: {StatusText}");
                 OnPropertyChanged();
             }
         }
@@ -145,6 +145,8 @@ namespace GUIClient
             {
                 try
                 {
+                    Log(@"Check if connected ...");
+
                     if (clientSocket.Connected)
                     {
                         clientSocket.Close();
@@ -168,6 +170,7 @@ namespace GUIClient
                     StatusText = $"Connection to server failed: {clientSocket.Client.RemoteEndPoint.ToString()}";
                 }
 
+                Log($"Connected: {clientSocket.Connected}");
                 return clientSocket.Connected;
             }
         }
@@ -179,6 +182,7 @@ namespace GUIClient
         {
             if (ChatSessionOpen)
             {
+                Log(@"Close Chat Session");
                 WriteLine(ChatClose);
                 ChatSessionOpen = false;
             }
@@ -186,6 +190,7 @@ namespace GUIClient
 
         public void Dispose()
         {
+            Log(@"Session.Dispose()");
             // Dispose of unmanaged resources.
             Dispose(true);
             // Suppress finalization.
@@ -199,7 +204,7 @@ namespace GUIClient
         /// <param name="password">The password.</param>
         public void Login(string username, string password)
         {
-            Log("Login ...");
+            Log($"Login({username}, {password})");
 
             if (Connected)
             {
@@ -249,7 +254,8 @@ namespace GUIClient
                 }
             }
 
-            Log("... Login");
+            Log($"{StatusText}");
+            Log($"LoggedIn: {LoggedIn}");
         }
 
         /// <summary>
@@ -259,12 +265,15 @@ namespace GUIClient
         /// <param name="password">The password.</param>
         public void NewAccount(string username, string password)
         {
+            Log($"NewAccount({username}, {password})");
+
             if (Connected)
             {
                 WriteLine($"{NewUserRequest}:{username}:{password}");
 
                 string incoming = ReadLine();
 
+                Log(incoming);
                 string[] parts = incoming.Split(':');
 
                 switch (parts[0])
@@ -305,6 +314,9 @@ namespace GUIClient
                         }
                 }
             }
+
+            Log($"{StatusText}");
+            Log($"LoggedIn: {LoggedIn}");
         }
 
         /// <summary>
@@ -313,6 +325,8 @@ namespace GUIClient
         /// <returns><c>true</c> if successful; otherwise, <c>false</c>.</returns>
         public bool OpenChat()
         {
+            Log(@"Open Chat Session");
+
             if (LoggedIn)
             {
                 // Open Chat Session
@@ -320,6 +334,7 @@ namespace GUIClient
 
                 string incoming = ReadLine();
 
+                Log(incoming);
                 string[] parts = incoming.Split(':');
 
                 switch (parts[0])
@@ -360,6 +375,9 @@ namespace GUIClient
                         }
                 }
             }
+
+            Log($"{StatusText}");
+            Log($"ChatSessionOpen: {ChatSessionOpen}");
 
             return ChatSessionOpen;
         }
@@ -429,6 +447,7 @@ namespace GUIClient
 
             if (LoggedIn)
             {
+                Log(@"Logout of the Session");
                 WriteLine(SessionConstants.LogOut);
                 LoggedIn = false;
             }

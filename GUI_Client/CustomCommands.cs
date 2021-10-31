@@ -88,9 +88,6 @@ namespace GUIClient
         /// Defines the Send.
         /// </summary>
         public static readonly RoutedUICommand Send =
-            new(
-                        @"_Send",
-                        nameof(Send),
-                        typeof(CustomCommands));
+            new(@"_Send", nameof(Send), typeof(CustomCommands));
     }
 }
