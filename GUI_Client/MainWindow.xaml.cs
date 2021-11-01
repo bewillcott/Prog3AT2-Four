@@ -31,11 +31,15 @@ namespace GUIClient
 
     using MyWpfNETCoreLib;
 
+    using static Common.Constants;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Private Fields
+
         /// <summary>
         /// Defines the blankPage.
         /// </summary>
@@ -45,6 +49,10 @@ namespace GUIClient
         /// The log console
         /// </summary>
         private readonly LogConsole logConsole;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -60,9 +68,40 @@ namespace GUIClient
             logConsole = new();
         }
 
+        #endregion Public Constructors
+
+        #region Public Properties
+
         /// <summary>
         /// Gets or sets the Session.
         /// </summary>
         public Session Session { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        /// <summary>
+        /// Set the Status line text.
+        /// </summary>
+        /// <param name="message">The message <see cref="string"/>.</param>
+        public void SetStatusText(string message)
+        {
+            statusTextBlock.Text = message != null ? message : string.Empty;
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Set the Window Title.
+        /// </summary>
+        private void SetTitle()
+        {
+            this.Title = ProductTitle;
+        }
+
+        #endregion Private Methods
     }
 }
