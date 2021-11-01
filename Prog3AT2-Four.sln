@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServerTests", "SocketServerTests\SocketServerTests.csproj", "{52219ECF-B6C5-45C2-9C83-527805F81BD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{EF470752-7941-4E4B-ADC4-8945B360D872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF470752-7941-4E4B-ADC4-8945B360D872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF470752-7941-4E4B-ADC4-8945B360D872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52219ECF-B6C5-45C2-9C83-527805F81BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52219ECF-B6C5-45C2-9C83-527805F81BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52219ECF-B6C5-45C2-9C83-527805F81BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52219ECF-B6C5-45C2-9C83-527805F81BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
