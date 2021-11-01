@@ -37,7 +37,7 @@ namespace Common
         /// <summary>
         /// The build date of the project.
         /// </summary>
-        public const string BuildDate = @"30 October 2021";
+        public const string BuildDate = @"1 November 2021";
 
         /// <summary>
         /// The Project title.
@@ -125,8 +125,8 @@ namespace Common
         /// <summary>
         /// Log messages to the standard console.
         /// </summary>
-        /// <param name="message">The message<see cref="string"/>.</param>
-        /// <param name="args">The args <see cref="object[]"/>.</param>
+        /// <param name="message">The message <see cref="string"/>.</param>
+        /// <param name="args">   The args <see cref="object[]"/>.</param>
         public static void Log(string message, params object[] args)
         {
             Console.WriteLine(message, args);

@@ -114,7 +114,7 @@ namespace GUIClient
         /// <param name="e">The e<see cref="System.Windows.Input.CanExecuteRoutedEventArgs"/>.</param>
         private void LoginCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Session == null;
+            e.CanExecute = Session == null || CentreFrame.Content.GetType() == typeof(NewAccountPage);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace GUIClient
         /// <param name="e">The e<see cref="System.Windows.Input.CanExecuteRoutedEventArgs"/>.</param>
         private void NewAccountCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Session == null;
+            e.CanExecute = Session == null || CentreFrame.Content.GetType() == typeof(LoginPage);
         }
 
         /// <summary>

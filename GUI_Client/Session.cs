@@ -75,9 +75,7 @@ namespace GUIClient
         /// <summary>
         /// Gets a value indicating whether [chat session open].
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [chat session open]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [chat session open]; otherwise, <c>false</c>.</value>
         public bool ChatSessionOpen
         {
             get => chatSessionOpen;
@@ -94,17 +92,13 @@ namespace GUIClient
         /// <summary>
         /// Gets a value indicating whether this instance is connected.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if this instance is connected; otherwise, <c>false</c>.</value>
         public bool IsConnected => clientSocket.Connected;
 
         /// <summary>
         /// Gets a value indicating whether [logged in].
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [logged in]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [logged in]; otherwise, <c>false</c>.</value>
         public bool LoggedIn
         {
             get => loggedIn;
@@ -136,9 +130,7 @@ namespace GUIClient
         /// <summary>
         /// Gets a value indicating whether this <see cref="Session"/> is connected.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if connected; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if connected; otherwise, <c>false</c>.</value>
         private bool Connected
         {
             get
@@ -164,10 +156,15 @@ namespace GUIClient
 
                     StatusText = $"Connected to server: {clientSocket.Client.RemoteEndPoint.ToString()}";
                 }
+                catch (SocketException ex)
+                {
+                    Log(ex.Message);
+                    StatusText = @"Connection to server failed!  Server is not running.";
+                }
                 catch (Exception ex)
                 {
                     Log(ex.Message);
-                    StatusText = $"Connection to server failed: {clientSocket.Client.RemoteEndPoint.ToString()}";
+                    StatusText = @"Connection to server failed!";
                 }
 
                 Log($"Connected: {clientSocket.Connected}");
@@ -386,14 +383,13 @@ namespace GUIClient
         /// Reads a line of characters from the server and returns the data as a string.
         /// </summary>
         /// <returns>
-        /// The next line of input from the server, or <c>null</c> if the end of the input is
-        /// reached.
+        /// The next line of input from the server, or <c>null</c> if the end of the input is reached.
         /// </returns>
         public string ReadLine() => inStream.ReadLine();
 
         /// <summary>
-        /// Write the <see cref="string"/> of <paramref name="text"/>,
-        /// followed by a line terminator, to the server.
+        /// Write the <see cref="string"/> of <paramref name="text"/>, followed by a line
+        /// terminator, to the server.
         /// </summary>
         /// <param name="text">String to send to the server</param>
         public void WriteLine(string text)
@@ -404,8 +400,10 @@ namespace GUIClient
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
-        /// <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed && disposing)

@@ -50,6 +50,7 @@ namespace SocketServer
             IPAddress ipAddress = Dns.GetHostEntry(ServerName).AddressList[0];
             IPEndPoint endPoint = new(ipAddress, ServerPort);
             TcpListener serverSocket = null;
+            UserAuthenticator userAuthenticator = new();
 
             try
             {
@@ -111,7 +112,7 @@ namespace SocketServer
                                                 {
                                                     if (request.Length == 3)
                                                     {
-                                                        if (ValidatePassword(sessionState, request[1], request[2]))
+                                                        if (userAuthenticator.ValidatePassword(sessionState, request[1], request[2]))
                                                         {
                                                             // Logged in!
                                                             sessionState.Message = LoginOK;
@@ -144,7 +145,7 @@ namespace SocketServer
                                                 {
                                                     if (request.Length == 3)
                                                     {
-                                                        if (CreateNewAccount(sessionState, request[1], request[2]))
+                                                        if (userAuthenticator.CreateNewAccount(sessionState, request[1], request[2]))
                                                         {
                                                             // Logged in!
                                                             sessionState.Message = NewUserOK;
@@ -289,40 +290,6 @@ namespace SocketServer
                 if (serverSocket != null)
                     serverSocket.Stop();
             }
-        }
-
-        /// <summary>
-        /// The ValidatePassword.
-        /// </summary>
-        /// <param name="sessionState">The sessionState<see cref="SessionState"/>.</param>
-        /// <param name="username">The username <see cref="string"/>.</param>
-        /// <param name="password">The password <see cref="string"/>.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        private static bool CreateNewAccount(SessionState sessionState, string username, string password)
-        {
-            // TODO: Redo code to actually create the new account
-            Log($"CreateNewAccount({username}, {password})");
-
-            sessionState.Username = username.Length > 0 ? username : null;
-            sessionState.SetPasswordValid(sessionState.Username != null && password.Length > 0);
-            return sessionState.LoggedIn;
-        }
-
-        /// <summary>
-        /// The ValidatePassword.
-        /// </summary>
-        /// <param name="sessionState">The sessionState<see cref="SessionState"/>.</param>
-        /// <param name="username">The username <see cref="string"/>.</param>
-        /// <param name="password">The password <see cref="string"/>.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        private static bool ValidatePassword(SessionState sessionState, string username, string password)
-        {
-            // TODO: Redo code to actually check the password is valid
-            Log($"Validate({username}, {password})");
-
-            sessionState.Username = username.Length > 0 ? username : null;
-            sessionState.SetPasswordValid(sessionState.Username != null && password.Length > 0);
-            return sessionState.LoggedIn;
         }
     }
 }

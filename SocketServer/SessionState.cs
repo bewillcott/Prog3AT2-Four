@@ -30,7 +30,7 @@ namespace SocketServer
     /// <summary>
     /// Holds state information about a single current session.
     /// </summary>
-    internal class SessionState
+    public class SessionState
     {
         /// <summary>
         /// Defines the lastSessionId.
