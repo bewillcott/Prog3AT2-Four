@@ -49,8 +49,8 @@
             <Label Content="Login" DockPanel.Dock="Top" FontSize="30.0" HorizontalAlignment="Center" />
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="submitButton" Content="_Submit" Click="SubmitButton_Click" />
-                <Button x:Name="resetButton" Content="_Reset" Click="ResetButton_Click" />
+                <Button x:Name="submitButton" Content="_Submit" Click="SubmitButton_Click"  TabIndex="2" />
+                <Button x:Name="resetButton" Content="_Reset" Click="ResetButton_Click"  TabIndex="3" />
             </StackPanel>
 
             <Grid Margin="0,20,0,20">
@@ -75,8 +75,8 @@
                     <Label Content="Username:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" />
                     <Label Content="Password:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" />
 
-                    <TextBox x:Name="usernameTextBox" Grid.Row="1" Grid.Column="2" Height="25" />
-                    <PasswordBox x:Name="thePasswordBox" Grid.Row="2" Grid.Column="2"  Height="25" />
+                    <TextBox x:Name="usernameTextBox" Grid.Row="1" Grid.Column="2" Height="25" TabIndex="0" />
+                    <PasswordBox x:Name="thePasswordBox" Grid.Row="2" Grid.Column="2"  Height="25" TabIndex="1" />
                     <Grid Grid.Row="4" Grid.ColumnSpan="3">
                         <Label x:Name="errorMessageLabel" Foreground="Red" />
                     </Grid>

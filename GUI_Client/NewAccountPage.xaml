@@ -49,8 +49,8 @@
             <Label Content="New Account" DockPanel.Dock="Top" FontSize="30.0" HorizontalAlignment="Center" />
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="submitButton" Content="_Submit" Click="SubmitButton_Click" />
-                <Button x:Name="resetButton" Content="_Reset" Click="ResetButton_Click" />
+                <Button x:Name="submitButton" Content="_Submit" Click="SubmitButton_Click" TabIndex="3" />
+                <Button x:Name="resetButton" Content="_Reset" Click="ResetButton_Click" TabIndex="4" />
             </StackPanel>
 
             <Grid Margin="0,20,0,20">
@@ -77,9 +77,9 @@
                     <Label x:Name="confirmPasswordLabel" Content="Confirm&#10;Password:"
                            HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" />
 
-                    <TextBox x:Name="usernameTextBox" Grid.Row="1" Grid.Column="2" Height="25" />
-                    <PasswordBox x:Name="firstPasswordBox" Grid.Row="2" Grid.Column="2"  Height="25" />
-                    <PasswordBox x:Name="secondPasswordBox" Grid.Row="3" Grid.Column="2" Height="25"
+                    <TextBox x:Name="usernameTextBox" Grid.Row="1" Grid.Column="2" Height="25" TabIndex="0" />
+                    <PasswordBox x:Name="firstPasswordBox" Grid.Row="2" Grid.Column="2"  Height="25" TabIndex="1" />
+                    <PasswordBox x:Name="secondPasswordBox" Grid.Row="3" Grid.Column="2" Height="25" TabIndex="2"
                                  VerticalAlignment="Bottom" Margin="0,0,0,5" />
                     <Grid Grid.Row="4" Grid.ColumnSpan="3">
                         <Label x:Name="errorMessageLabel" Foreground="Red" />
