@@ -119,7 +119,7 @@ namespace GUIClient
         public string StatusText
         {
             get => statusText;
-            private set
+            set
             {
                 statusText = value;
                 Log($"StatusText: {StatusText}");

@@ -34,7 +34,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GUIClient"
       mc:Ignorable="d"
-      d:DesignHeight="330" d:DesignWidth="340"
+      d:DesignHeight="330" d:DesignWidth="400"
       Title="NewAccount">
 
     <Page.Resources>
@@ -68,22 +68,17 @@
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
                         <RowDefinition Height="40" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="25" />
                     </Grid.RowDefinitions>
 
-                    <Label Content="Username:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" />
-                    <Label Content="Password:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" />
-                    <Label x:Name="confirmPasswordLabel" Content="Confirm&#10;Password:"
+                    <Label x:Name="userNameLabel" Content="Username:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" />
+                    <Label x:Name="firstPasswordLabel" Content="Password:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" />
+                    <Label x:Name="secondPasswordLabel" Content="Confirm&#10;Password:"
                            HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" />
 
                     <TextBox x:Name="usernameTextBox" Grid.Row="1" Grid.Column="2" Height="25" TabIndex="0" />
                     <PasswordBox x:Name="firstPasswordBox" Grid.Row="2" Grid.Column="2"  Height="25" TabIndex="1" />
                     <PasswordBox x:Name="secondPasswordBox" Grid.Row="3" Grid.Column="2" Height="25" TabIndex="2"
                                  VerticalAlignment="Bottom" Margin="0,0,0,5" />
-                    <Grid Grid.Row="4" Grid.ColumnSpan="3">
-                        <Label x:Name="errorMessageLabel" Foreground="Red" />
-                    </Grid>
                 </Grid>
             </Grid>
         </DockPanel>
